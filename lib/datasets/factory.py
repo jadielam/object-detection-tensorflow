@@ -14,6 +14,7 @@ import numpy as np
 from .pascal_voc import pascal_voc
 from .imagenet3d import imagenet3d
 from .kitti import kitti
+from .hands import hands
 from .kitti_tracking import kitti_tracking
 from .nthu import nthu
 from .coco import coco
@@ -66,6 +67,10 @@ for split in ['71', '370']:
     print name
     __sets[name] = (lambda split=split: nthu(split))
 
+# Hands dataset
+for split in ['train', 'test']:
+    name = '{}_{}'.format('hands', split)
+    __sets[name] = (lambada split = split, devkit = "/home/ubuntu/pva-faster-rcnn/data/DISNEY_Hands_devkit/data": hands(split, devkit))
 
 def get_imdb(name):
     """Get an imdb (image database) by name."""

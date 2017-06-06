@@ -98,7 +98,7 @@ class hands(imdb):
         return gt_roidb
     
     def default_roidb(self):
-        self.rpn_roidb()
+        self.gt_roidb()
 
     def rpn_roidb(self):
         gt_roidb = self.gt_roidb()

@@ -70,7 +70,7 @@ for split in ['71', '370']:
 # Hands dataset
 for split in ['train', 'test']:
     name = '{}_{}'.format('hands', split)
-    __sets[name] = (lambada split = split, devkit = "/home/ubuntu/pva-faster-rcnn/data/DISNEY_Hands_devkit/data": hands(split, devkit))
+    __sets[name] = (lambada split = split, devkit = "/home/ubuntu/detection/": hands(split, devkit))
 
 def get_imdb(name):
     """Get an imdb (image database) by name."""

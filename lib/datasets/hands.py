@@ -96,7 +96,10 @@ class hands(imdb):
         print(('wrote gt roidb to {}'.format(cache_file)))
 
         return gt_roidb
-
+    
+    def default_roidb(self):
+        rpn_roidb()
+        
     def rpn_roidb(self):
         gt_roidb = self.gt_roidb()
         rpn_roidb = self._load_rpn_roidb(gt_roidb)

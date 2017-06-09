@@ -151,8 +151,9 @@ class hands(imdb):
                     ymin = '2'
                     ymin_i = 2
                     print(filename)
-                if xmax_i > xmin_i and ymax_i > ymin_i and area > 250:
-                    objs.append([xmin, ymin, xmax, ymax])
+                #if xmax_i > xmin_i and ymax_i > ymin_i and area > 250:
+                    #objs.append([xmin, ymin, xmax, ymax])
+                objs.append([xmin, ymin, xmax, ymax])
 
                     
         num_objs = len(objs)

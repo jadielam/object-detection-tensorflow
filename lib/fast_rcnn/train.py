@@ -209,6 +209,7 @@ class SolverWrapper(object):
 
             if _DEBUG:
                 
+                print('gt_boxes:')
                 print(blobs['gt_boxes'])
                 # add profiling
                 # link libcupti.so in LD_LIBRARY_PATH

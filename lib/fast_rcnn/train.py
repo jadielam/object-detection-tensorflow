@@ -23,7 +23,7 @@ from ..fast_rcnn.config import cfg
 from ..fast_rcnn.bbox_transform import clip_boxes, bbox_transform_inv
 # <<<< obsolete
 
-_DEBUG = False
+_DEBUG = True
 
 class SolverWrapper(object):
     """A simple wrapper around Caffe's solver.
@@ -208,7 +208,8 @@ class SolverWrapper(object):
                           train_op] + res_fetches
 
             if _DEBUG:
-
+                
+                print(blobs['gt_boxes'])
                 # add profiling
                 # link libcupti.so in LD_LIBRARY_PATH
                 #

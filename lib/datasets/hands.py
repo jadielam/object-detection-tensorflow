@@ -17,6 +17,8 @@ import uuid
 from .hands_eval import hands_eval
 import xml.etree.ElementTree as ET
 
+__DEBUG = True
+
 class hands(imdb):
     
     def __init__(self, image_set, devkit_path):
@@ -151,9 +153,9 @@ class hands(imdb):
                     ymin = '2'
                     ymin_i = 2
                     print(filename)
-                #if xmax_i > xmin_i and ymax_i > ymin_i and area > 250:
-                    #objs.append([xmin, ymin, xmax, ymax])
-                objs.append([xmin, ymin, xmax, ymax])
+                if xmax_i > xmin_i and ymax_i > ymin_i and area > 250:
+                    objs.append([xmin, ymin, xmax, ymax])
+                #objs.append([xmin, ymin, xmax, ymax])
 
                     
         num_objs = len(objs)
@@ -179,6 +181,8 @@ class hands(imdb):
             seg_areas[ix] = (x2 - x1 + 1) * (y2 - y1 + 1)
         overlaps = scipy.sparse.csr_matrix(overlaps)
 
+        if __DEBUG:
+            print(boxes)
         return {'boxes' : boxes,
                 'gt_classes': gt_classes,
                 'gt_overlaps' : overlaps,

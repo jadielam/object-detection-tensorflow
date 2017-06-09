@@ -17,7 +17,7 @@ import uuid
 from .hands_eval import hands_eval
 import xml.etree.ElementTree as ET
 
-__DEBUG = True
+_DEBUG = True
 
 class hands(imdb):
     
@@ -181,7 +181,7 @@ class hands(imdb):
             seg_areas[ix] = (x2 - x1 + 1) * (y2 - y1 + 1)
         overlaps = scipy.sparse.csr_matrix(overlaps)
 
-        if __DEBUG:
+        if _DEBUG:
             print(boxes)
         return {'boxes' : boxes,
                 'gt_classes': gt_classes,

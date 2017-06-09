@@ -23,7 +23,7 @@ from ..fast_rcnn.config import cfg
 from ..fast_rcnn.bbox_transform import clip_boxes, bbox_transform_inv
 # <<<< obsolete
 
-_DEBUG = True
+_DEBUG = False
 
 class SolverWrapper(object):
     """A simple wrapper around Caffe's solver.

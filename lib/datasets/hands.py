@@ -17,7 +17,7 @@ import uuid
 from .hands_eval import hands_eval
 import xml.etree.ElementTree as ET
 
-_DEBUG = True
+_DEBUG = False
 
 class hands(imdb):
     

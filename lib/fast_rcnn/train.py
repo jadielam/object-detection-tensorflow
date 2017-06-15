@@ -23,7 +23,7 @@ from ..fast_rcnn.config import cfg
 from ..fast_rcnn.bbox_transform import clip_boxes, bbox_transform_inv
 # <<<< obsolete
 
-_DEBUG = False
+_DEBUG = True
 
 class SolverWrapper(object):
     """A simple wrapper around Caffe's solver.
@@ -270,6 +270,10 @@ class SolverWrapper(object):
                 #draw rects
                 print 'rois:', rois.shape[0]
                 if cfg.TRAIN.BBOX_REG and cfg.TRAIN.BBOX_NORMALIZE_TARGETS:
+                    if _DEBUG:
+                        print bbox_pred.shape
+                        print self.bbox_stds.shape
+                        print np.tile(self.bbox_stds, (bbox_pred.shape[0], 1)).shape
                     bbox_pred = bbox_pred * np.tile(self.bbox_stds, (bbox_pred.shape[0], 1)) + \
                                 np.tile(self.bbox_means, (bbox_pred.shape[0], 1))
                                 

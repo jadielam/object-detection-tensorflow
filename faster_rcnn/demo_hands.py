@@ -85,9 +85,9 @@ if __name__ == '__main__':
 
     args = parse_args()
 
-    if args.model == ' ' or not os.path.exists(args.model):
-        print ('current path is ' + os.path.abspath(__file__))
-        raise IOError(('Error: Model not found.\n'))
+    #if args.model == ' ' or not os.path.exists(args.model):
+    #    print ('current path is ' + os.path.abspath(__file__))
+    #    raise IOError(('Error: Model not found.\n'))
 
     # init session
     sess = tf.Session(config=tf.ConfigProto(allow_soft_placement=True))

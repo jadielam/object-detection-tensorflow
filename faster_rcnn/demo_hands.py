@@ -28,8 +28,8 @@ def vis_detections(im, class_name, dets, thresh=0.5):
         bbox = dets[i, :4]
         score = dets[i, -1]
 
-        cv2.rectangle(im, (bbox[0], bbox[1]), (bbox[2], bbox[3]), (0, 255, 0), 20)
-        cv2.putText(im, '{:s} {:.3f}'.format(class_name, score), (bbox[0], bbox[1] - 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+        cv2.rectangle(im, (int(bbox[0]), int(bbox[1])), (int(bbox[2]), int(bbox[3])), (0, 255, 0), 20)
+        cv2.putText(im, '{:s} {:.3f}'.format(class_name, score), (int(bbox[0]), int(bbox[1]) - 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
 
 def demo(sess, net, image_name):
     """Detect object classes in an image using pre-computed object proposals."""

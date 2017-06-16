@@ -113,7 +113,7 @@ The demo performs detection using a VGG16 network trained for detection on PASCA
 
     ```Shell
     cd $TFFRCNN
-    python ./faster_rcnn/train_net.py --gpu 0 --weights ./data/pretrain_model/VGG_imagenet.npy --imdb voc_2007_trainval --iters 70000 --cfg  ./experiments/cfgs/faster_rcnn_end2end.yml --network VGGnet_train --set EXP_DIR exp_dir
+    python ./faster_rcnn/train_net.py --gpu 0 --weights ./data/pretrain_model/VGG_imagenet.npy --imdb voc_2007_trainval --iters 70000 --cfg  ./experiments/cfgs/faster_rcnn_end2end.yml --network VGGnet_train --set EXP_DIR exp_dir --restore 0
     ```
 
 7. Run a profiling
@@ -125,7 +125,12 @@ The demo performs detection using a VGG16 network trained for detection on PASCA
     ./experiments/profiling/run_profiling.sh 
     # generate an image ./experiments/profiling/profile.png
     ```
-
+8. Running a demo script
+    
+    ```Shell
+    cd $TFFRCNN
+    python ./faster_rcnn/demo_hands.py --gpu 0 --net VGGnet_test --model /home/ubuntu/object-detection-tensorflow/output/faster_rcnn_voc_vgg/train/VGGnet_fast_rcnn_iter_70000.ckpt --cfg ~/object-detection-tensorflow/experiments/cfgs/faster_rcnn_end2end_hands.yml
+    ```
 ### Training on KITTI detection dataset
 
 1. Download the KITTI detection dataset

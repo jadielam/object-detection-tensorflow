@@ -10,7 +10,7 @@ this_dir = os.path.dirname(__file__)
 sys.path.insert(0, this_dir + '/..')
 
 from lib.networks.factory import get_network
-from lib.fast_rcnn.config import cfg
+from lib.fast_rcnn.config import cfg, cfg_from_file
 from lib.fast_rcnn.test import im_detect
 from lib.fast_rcnn.nms_wrapper import nms
 from lib.utils.timer import Timer
@@ -92,6 +92,7 @@ if __name__ == '__main__':
         cfg_from_file(args.cfg_file)
     if args.set_cfgs is not None:
         cfg_from_list(args.set_cfgs)
+
     #if args.model == ' ' or not os.path.exists(args.model):
     #    print ('current path is ' + os.path.abspath(__file__))
     #    raise IOError(('Error: Model not found.\n'))

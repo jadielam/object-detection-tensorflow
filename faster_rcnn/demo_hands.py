@@ -6,8 +6,8 @@ import argparse
 import os.path as osp
 import glob
 
-this_dir = osp.dirname(__file__)
-print(this_dir)
+this_dir = os.path.dirname(__file__)
+sys.path.insert(0, this_dir + '/..')
 
 from lib.networks.factory import get_network
 from lib.fast_rcnn.config import cfg

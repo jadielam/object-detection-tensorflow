@@ -17,7 +17,7 @@ from lib.utils.timer import Timer
 
 CLASSES = ('__background__', 'hand')
 
-def vis_detections(im, class_name, dets, ax, thresh=0.5):
+def vis_detections(im, class_name, dets, thresh=0.5):
     """Draw detected bounding boxes."""
     inds = np.where(dets[:, -1] >= thresh)[0]
 
@@ -58,9 +58,9 @@ def demo(sess, net, image_name):
                           cls_scores[:, np.newaxis])).astype(np.float32)
         keep = nms(dets, NMS_THRESH)
         dets = dets[keep, :]
-        vis_detections(im, cls, dets, ax, thresh=CONF_THRESH)
+        vis_detections(im, cls, dets, thresh=CONF_THRESH)
     
-    imageio.imsave("test.jpg", im)
+    imageio.imsave(image_name + "_rect.jpg", im)
 
 def parse_args():
     """Parse input arguments."""
@@ -117,6 +117,4 @@ if __name__ == '__main__':
         print '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
         print 'Demo for {:s}'.format(im_name)
         demo(sess, net, im_name)
-
-    plt.show()
 

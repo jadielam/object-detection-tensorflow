@@ -74,6 +74,9 @@ def parse_args():
                         default='VGGnet_test')
     parser.add_argument('--model', dest='model', help='Model path',
                         default=' ')
+    parser.add_argument('--cfg', dest='cfg_file',
+                        help='optional config file',
+                        default=None, type=str)
 
     args = parser.parse_args()
 
@@ -85,6 +88,10 @@ if __name__ == '__main__':
 
     args = parse_args()
 
+    if args.cfg_file is not None:
+        cfg_from_file(args.cfg_file)
+    if args.set_cfgs is not None:
+        cfg_from_list(args.set_cfgs)
     #if args.model == ' ' or not os.path.exists(args.model):
     #    print ('current path is ' + os.path.abspath(__file__))
     #    raise IOError(('Error: Model not found.\n'))

@@ -22,7 +22,7 @@ def vis_detections(im, class_name, dets, thresh=0.5):
     inds = np.where(dets[:, -1] >= thresh)[0]
 
     if len(inds) == 0:
-        return rectangle_im
+        return
 
     for i in inds:
         bbox = dets[i, :4]

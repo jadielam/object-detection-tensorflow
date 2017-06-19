@@ -1,21 +1,8 @@
-# TFFRCNN
+# Object Detection Tensorflow
 
-This is an experimental **T**ensor **F**low implementation of **F**aster **RCNN** (**TFFRCNN**), mainly based on the work of [smallcorgi](https://github.com/smallcorgi/Faster-RCNN_TF) and [rbgirshick](https://github.com/rbgirshick/py-faster-rcnn). I have re-organized the libraries under `lib` path, making each of python modules independent to each other, so you can understand, re-write the code easily.
+This repository is mainly based on the work of [smallcorgi](https://github.com/smallcorgi/Faster-RCNN_TF) and [rbgirshick](https://github.com/rbgirshick/py-faster-rcnn). 
 
 For details about R-CNN please refer to the paper [Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks](http://arxiv.org/pdf/1506.01497v3.pdf) by Shaoqing Ren, Kaiming He, Ross Girshick, Jian Sun.
-
-### What's New
-
-- [x] Resnet networks support
-- [x] KITTI object detection dataset support
-- [x] **P**osition **S**ensitive **ROI Pooling** (psroi_pooling), not testing yet
-- [x] Hard Example Mining
-- [x] Data Augment
-- [x] PVANet
-- [x] Tensorflow 1.0
-- [ ] R-FCN
-- [ ] Multi-layer Architecture (HyperNet)
-- [ ] more hacks...
 
 ### Acknowledgments: 
 
@@ -49,7 +36,6 @@ For details about R-CNN please refer to the paper [Faster R-CNN: Towards Real-Ti
     ```
 
 ### Demo
-
 *After successfully completing [basic installation](#installation-sufficient-for-the-demo)*, you'll be ready to run the demo.
 
 To run the demo
@@ -73,50 +59,34 @@ The demo performs detection using a VGG16 network trained for detection on PASCA
 
 6. [PVANet trained on ImageNet, converted from caffemodel](https://drive.google.com/open?id=0B_xFdh9onPagQnJBdWl3VGQxam8)
 
-### Training on Pascal VOC 2007
+### Training on Custom dataset
 
-1. Download the training, validation, test data and VOCdevkit
+1. Place the data in VOC format
 
-    ```Shell
-    wget http://host.robots.ox.ac.uk/pascal/VOC/voc2007/VOCtrainval_06-Nov-2007.tar
-    wget http://host.robots.ox.ac.uk/pascal/VOC/voc2007/VOCtest_06-Nov-2007.tar
-    wget http://host.robots.ox.ac.uk/pascal/VOC/voc2007/VOCdevkit_08-Jun-2007.tar
+2. The data directory should have the following
+structure
+    ```
+    VOC Format Data
+        |-- Annotations
+                |-- [000000-007480].xml
+        |-- ImageSets
+                |-- Main
+                    |-- [train|val|trainval].txt
+        |-- JPEGImages
+                
+
     ```
 
-2. Extract all of these tars into one directory named `VOCdevkit`
+3. Download pre-trained model [VGG16](https://drive.google.com/open?id=0ByuDEGFYmWsbNVF5eExySUtMZmM) and put it in the path `./data/pretrain_model/VGG_imagenet.npy`
 
-    ```Shell
-    tar xvf VOCtrainval_06-Nov-2007.tar
-    tar xvf VOCtest_06-Nov-2007.tar
-    tar xvf VOCdevkit_08-Jun-2007.tar
-    ```
-
-3. It should have this basic structure
-
-    ```Shell
-    $VOCdevkit/                           # development kit
-    $VOCdevkit/VOCcode/                   # VOC utility code
-    $VOCdevkit/VOC2007                    # image sets, annotations, etc.
-    # ... and several other directories ...
-    ```
-
-4. Create symlinks for the PASCAL VOC dataset
-
-    ```Shell
-    cd $TFFRCNN/data
-    ln -s $VOCdevkit VOCdevkit2007
-    ```
-
-5. Download pre-trained model [VGG16](https://drive.google.com/open?id=0ByuDEGFYmWsbNVF5eExySUtMZmM) and put it in the path `./data/pretrain_model/VGG_imagenet.npy`
-
-6. Run training scripts 
+4. TO TRAIN, DO:
 
     ```Shell
     cd $TFFRCNN
-    python ./faster_rcnn/train_net.py --gpu 0 --weights ./data/pretrain_model/VGG_imagenet.npy --imdb voc_2007_trainval --iters 70000 --cfg  ./experiments/cfgs/faster_rcnn_end2end.yml --network VGGnet_train --set EXP_DIR exp_dir --restore 0
+    python ./faster_rcnn/train_net.py --gpu 0 --weights ./data/pretrain_model/VGG_imagenet.npy --imdb hands_train --iters 70000 --cfg  ./experiments/cfgs/faster_rcnn_end2end_hands.yml --network VGGnet_train --set EXP_DIR exp_dir --restore 0
     ```
 
-7. Run a profiling
+5. Run a profiling
 
     ```Shell
     cd $TFFRCNN
@@ -125,12 +95,14 @@ The demo performs detection using a VGG16 network trained for detection on PASCA
     ./experiments/profiling/run_profiling.sh 
     # generate an image ./experiments/profiling/profile.png
     ```
-8. Running a demo script
+
+6. TO DO DEMO TRAINED MODEL, DO:
     
     ```Shell
     cd $TFFRCNN
     python ./faster_rcnn/demo_hands.py --gpu 0 --net VGGnet_test --model /home/ubuntu/object-detection-tensorflow/output/faster_rcnn_voc_vgg/train/VGGnet_fast_rcnn_iter_70000.ckpt --cfg ~/object-detection-tensorflow/experiments/cfgs/faster_rcnn_end2end_hands.yml
     ```
+
 ### Training on KITTI detection dataset
 
 1. Download the KITTI detection dataset

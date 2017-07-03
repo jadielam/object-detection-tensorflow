@@ -15,6 +15,7 @@ from .pascal_voc import pascal_voc
 from .imagenet3d import imagenet3d
 from .kitti import kitti
 from .hands import hands
+from .generic import generic
 from .kitti_tracking import kitti_tracking
 from .nthu import nthu
 from .coco import coco
@@ -71,6 +72,11 @@ for split in ['71', '370']:
 for split in ['train', 'test']:
     name = '{}_{}'.format('hands', split)
     __sets[name] = (lambda split = split, devkit = "/home/ubuntu/detection/": hands(split, devkit))
+
+# Persons dataset
+for split in ['train', 'test']:
+    name = '{}_{}'.format('persons', split)
+    __sets[name] = (lambda split = split, devkit = "/home/ubuntu/detection_persons/": generic(split, devkit, ["person"]))
 
 def get_imdb(name):
     """Get an imdb (image database) by name."""

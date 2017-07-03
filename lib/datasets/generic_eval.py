@@ -1,5 +1,6 @@
 '''
 Created on Apr 3, 2017
+
 @author: dearj019
 '''
 
@@ -10,24 +11,30 @@ import numpy as np
 
 def parse_rec(filename):
     """ Parse a cars-car annotation file """
+    
     objects = []
-    with open(filename) as f:
-        data = f.read()
-    objs = re.findall('\(\d+, \d+\)[\s\-]+\(\d+, \d+\)', data)
-
-    for ix, obj in enumerate(objs):
-        obj_struct = {}
-        coor = re.findall('\d+', obj)
-        obj_struct['bbox'] = [int(coor[0]),
-                              int(coor[1]),
-                              int(coor[2]),
-                              int(coor[3])]
-        obj_struct['name'] = 'hand'
-        obj_struct['difficult'] = 0
+    tree = ET.parse(filename)
+        root = tree.getroot()
+        objs = []
+        
+        for element in root.iter('object'):
+            name = element.find('name').text
+            
+            bndbox = element.find('bndbox')
+            xmin = int(bndbox.find("xmin").text)
+            ymin = int(bndbox.find("ymin").text)
+            xmax = int(bndbox.find("xmax").text)
+            ymax = int(bndbox.find("ymax").text)
+                
+            obj_struct = {}
+            obj_struct['bbox'] = [xmin_i, xmax_i, ymin_i, ymax_i]
+            obj_struct['name'] = name
+            obj_struct['difficult'] = 0
+        
         objects.append(obj_struct)
     return objects
 
-def hands_ap(rec, prec, use_07_metric=False):
+def generic_ap(rec, prec, use_07_metric=False):
     """ ap = cars_ap(rec, prec, [use_07_metric])
     Compute VOC AP given precision and recall.
     If use_07_metric is true, uses the
@@ -60,7 +67,7 @@ def hands_ap(rec, prec, use_07_metric=False):
         ap = np.sum((mrec[i + 1] - mrec[i]) * mpre[i + 1])
     return ap
 
-def hands_eval(detpath,
+def generic_eval(detpath,
              annopath,
              imagesetfile,
              classname,
@@ -192,7 +199,6 @@ def hands_eval(detpath,
     # avoid divide by zero in case the first detection matches a difficult
     # ground truth
     prec = tp / np.maximum(tp + fp, np.finfo(np.float64).eps)
-    ap = hands_ap(rec, prec, use_07_metric)
+    ap = generic_ap(rec, prec, use_07_metric)
 
     return rec, prec, ap
-    

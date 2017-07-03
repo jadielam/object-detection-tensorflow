@@ -252,9 +252,12 @@ class SolverWrapper(object):
                               train_op] + res_fetches
 
                 fetch_list += []
-                rpn_loss_cls_value, rpn_loss_box_value, loss_cls_value, loss_box_value, \
-                summary_str, _, \
-                cls_prob, bbox_pred, rois =  sess.run(fetches=fetch_list, feed_dict=feed_dict)
+                try:
+                    rpn_loss_cls_value, rpn_loss_box_value, loss_cls_value, loss_box_value, \
+                    summary_str, _, \
+                    cls_prob, bbox_pred, rois =  sess.run(fetches=fetch_list, feed_dict=feed_dict)
+                except:
+                    continue
 
             self.writer.add_summary(summary=summary_str, global_step=global_step.eval())
 

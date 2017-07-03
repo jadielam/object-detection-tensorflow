@@ -139,10 +139,10 @@ class generic(imdb):
                 xmax = bndbox.find("xmax").text
                 ymax = bndbox.find("ymax").text
                 
-                xmin_i = int(xmin)
-                xmax_i = int(xmax)
-                ymin_i = int(ymin)
-                ymax_i = int(ymax)
+                xmin_i = int(float(xmin))
+                xmax_i = int(float(xmax))
+                ymin_i = int(float(ymin))
+                ymax_i = int(float(ymax))
                 area = (xmax_i - xmin_i) * (ymax_i - ymin_i)
                 if xmin_i < 2:
                     xmin = '2'

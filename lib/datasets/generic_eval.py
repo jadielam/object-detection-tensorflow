@@ -14,22 +14,21 @@ def parse_rec(filename):
     
     objects = []
     tree = ET.parse(filename)
-        root = tree.getroot()
-        objs = []
+    root = tree.getroot()
+    
         
-        for element in root.iter('object'):
-            name = element.find('name').text
-            
-            bndbox = element.find('bndbox')
-            xmin = int(bndbox.find("xmin").text)
-            ymin = int(bndbox.find("ymin").text)
-            xmax = int(bndbox.find("xmax").text)
-            ymax = int(bndbox.find("ymax").text)
+    for element in root.iter('object'):
+        name = element.find('name').text            
+        bndbox = element.find('bndbox')
+        xmin = int(bndbox.find("xmin").text)
+        ymin = int(bndbox.find("ymin").text)
+        xmax = int(bndbox.find("xmax").text)            
+        ymax = int(bndbox.find("ymax").text)
                 
-            obj_struct = {}
-            obj_struct['bbox'] = [xmin_i, xmax_i, ymin_i, ymax_i]
-            obj_struct['name'] = name
-            obj_struct['difficult'] = 0
+        obj_struct = {}
+        obj_struct['bbox'] = [xmin_i, xmax_i, ymin_i, ymax_i]
+        obj_struct['name'] = name
+        obj_struct['difficult'] = 0
         
         objects.append(obj_struct)
     return objects

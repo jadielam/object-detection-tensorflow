@@ -15,7 +15,7 @@ from lib.fast_rcnn.test import im_detect
 from lib.fast_rcnn.nms_wrapper import nms
 from lib.utils.timer import Timer
 
-CLASSES = ('__background__', 'hand')
+CLASSES = ('__background__', 'person')
 
 def vis_detections(im, class_name, dets, thresh=0.5):
     """Draw detected bounding boxes."""

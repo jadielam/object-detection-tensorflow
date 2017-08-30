@@ -23,15 +23,25 @@ For details about R-CNN please refer to the paper [Faster R-CNN: Towards Real-Ti
 1. For training the end-to-end version of Faster R-CNN with VGG16, 3G of GPU memory is sufficient (using CUDNN)
 
 ### Installation (sufficient for the demo)
+1. Use the AWS AMI in the Oregon region with id: ami-cdcc54ad.
+Be sure to use it on a p2-type machine, since Tensorflow was compiled
+for that specific architecture.
 
-1. Clone the Faster R-CNN repository
+2. Install some dependencies that are missing for this project.
+```Shell
+pip install easydict
+pip install Cython
+```
+
+3. Clone the Faster R-CNN repository
   ```Shell
-  git clone https://github.com/CharlesShang/TFFRCNN.git
+  git clone https://github.disney.com/Engineering-Excellence/object-detection-tensorflow.git
   ```
 
-2. Build the Cython modules
+2. Build the Cython modules.  You need to see if there is need to modify the file `lib/make.sh`.  Just make sure that all mentions to architecture
+have `sm_35` (There should be two mentions)
     ```Shell
-    cd TFFRCNN/lib
+    cd object-detection-tensorflow/lib
     make # compile cython and roi_pooling_op, you may need to modify make.sh for your platform
     ```
 
@@ -40,7 +50,7 @@ For details about R-CNN please refer to the paper [Faster R-CNN: Towards Real-Ti
 
 To run the demo
 ```Shell
-cd $TFFRCNN
+cd object-detection-tensorflow
 python ./faster_rcnn/demo.py --model model_path
 ```
 The demo performs detection using a VGG16 network trained for detection on PASCAL VOC 2007.
@@ -76,6 +86,13 @@ structure
                 
 
     ```
+3. Create custom imdb (image database) for your new dataset.  Look at 
+`lib/datasets/hands.py` for an example of how to do it.  You will also need to add an entry in the factory file. (`lib/datasets/factory.py`)
+
+4. Create custom yml file that defines some parameters to be used by the
+specific network architecture you are using.  Mostly be sure to change
+the number of classes to the actual value.  The number of classes is the
+number of different types of objects you want to detect + 1, since background is also counted as a class (the null class).  See example in `experiments/cfgs/faster_rcnn_end2end_hands.yml`
 
 3. Download pre-trained model [VGG16](https://drive.google.com/open?id=0ByuDEGFYmWsbNVF5eExySUtMZmM) and put it in the path `./data/pretrain_model/VGG_imagenet.npy`
 
